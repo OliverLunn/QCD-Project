@@ -24,7 +24,7 @@ class Kerr_Resonator:
         vector = np.where(comp==n,1+0j,0+0j)
         return vector
 
-    def rho_dot(self, t, rho, row):
+    def rho_dot(self, t, rho):
         delta = 0
         epsilon = 0.5
         K = -0.5
