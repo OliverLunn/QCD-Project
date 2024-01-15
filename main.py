@@ -33,15 +33,15 @@ class Kerr_Resonator:
         a_dag = self.raising_operator()
         i = 1j #imaginary unit
 
-        rho_d = - i*delta*(a@a_dag@a@rho) - i*(K/2)*(a@a_dag@a_dag@a@a@rho) - epsilon*(a@a_dag@rho)
-        + epsilon*(a@a@rho)+ i*delta*(a@rho@a_dag@a) + i*(K/2)*(a@rho@a_dag@a_dag@a@a) - epsilon*(a@rho@a_dag)
-        + epsilon*(a@rho@a) - (1/2)*(a_dag@a@rho - 2*(a@rho@a_dag) + rho@a_dag@a)
+        rho_d = - i*delta*np.dot(a@a_dag@a,rho) - i*(K/2)*np.dot(a@a_dag@a_dag@a@a,rho) - epsilon*np.dot(a@a_dag,rho)
+        + epsilon*np.dot(a@a,rho)+ i*delta*np.dot(np.dot(a,rho),a_dag@a) + i*(K/2)*np.dot(np.dot(a,rho),a_dag@a_dag@a@a) - epsilon*np.dot(np.dot(a,rho),a_dag)
+        + epsilon*np.dot(np.dot(a,rho),a) - (1/2)*(np.dot(a_dag@a,rho) - 2*np.dot(a,rho)@a_dag) + np.dot(rho,a_dag@a)
     
         return rho_d
     
     def solve(self, rho_0, t_start, t_stop):
 
-        soln = odeintw.odeintw(self.rho_dot,rho_0,np.linspace(t_start,t_stop,100))
+        soln = odeintw.odeintw(self.rho_dot,rho_0,np.linspace(t_start,t_stop,1000))
         return soln
 
 
@@ -49,6 +49,9 @@ if __name__ == '__main__':
     kr = Kerr_Resonator(3)
     t=0
     rho_0 = (np.outer(kr.n_vector(0), kr.n_vector(0)))
-    print(np.shape(kr.rho_dot(0,rho_0)))
-    print(np.shape(kr.raising_operator()))
-    soln = kr.solve(rho_0, 0, 10)
+    soln = kr.solve(rho_0, 0, 100)
+    plt.plot(np.real(soln[:,1,1]),'.',color = 'blue')
+    plt.plot(np.real(soln[:,0,0]),'.',color = 'red')
+    plt.plot(np.real(soln[:,0,1]),'.',color = 'green')
+    plt.plot(np.real(soln[:,1,0]),'.',color = 'orange')
+    plt.show()
