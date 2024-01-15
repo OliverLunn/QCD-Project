@@ -5,11 +5,9 @@ import odeintw
 
 class Kerr_Resonator:
 
-
     def __init__(self, n_states):
         
         self.n_states = n_states    
-
 
     def lowering_operator(self):
         n = np.arange(1, self.n_states, 1,dtype=complex)
@@ -26,7 +24,7 @@ class Kerr_Resonator:
         vector = np.where(comp==n,1+0j,0+0j)
         return vector
 
-    def rho_dot(self, t, rho):
+    def rho_dot(self, t, rho, row):
         delta = 0
         epsilon = 0.5
         K = -0.5
