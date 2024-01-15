@@ -45,13 +45,14 @@ class Kerr_Resonator:
     
     def solve(self, rho_0, t_start, t_stop):
         rows = self.n_states
-        t_points = np.linspace(t_start, t_stop, 10)
+        t_points = np.linspace(t_start, t_stop, 4)
         soln_matrix = np.zeros((rows, rows, len(t_points)))
 
         for r in range(rows):
                 soln = integrate.solve_ivp(self.rho_dot, [t_start, t_stop], rho_0[r,:], t_eval=t_points, args=(r,))
-                print(soln.y.shape)
+                #print(soln.y.shape)
                 soln_matrix[r,:,:] = soln.y
+                print(soln_matrix)
 
         return soln_matrix
 
@@ -61,4 +62,3 @@ if __name__ == '__main__':
     t_start, t_stop = 0, 1
     rho_0 = np.outer(kr.n_vector(0), kr.n_vector(0))
     soln = kr.solve(rho_0, t_start, t_stop)
-    print(soln)
