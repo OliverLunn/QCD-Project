@@ -49,6 +49,6 @@ if __name__ == '__main__':
     kr = Kerr_Resonator(3)
     t=0
     rho_0 = (np.outer(kr.n_vector(0), kr.n_vector(0)))
-    print(kr.rho_dot(0,rho_0))
-    print(kr.raising_operator())
+    print(np.shape(kr.rho_dot(0,rho_0)))
+    print(np.shape(kr.raising_operator()))
     soln = kr.solve(rho_0, 0, 10)
