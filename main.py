@@ -61,4 +61,3 @@ if __name__ == '__main__':
     n_states = 3
     kr = Kerr_Resonator(n_states,delta,epsilon,K)
     rho_0 = (np.outer(kr.n_vector(0), kr.n_vector(0)))
-
