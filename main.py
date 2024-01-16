@@ -49,32 +49,35 @@ class Kerr_Resonator:
         K = self.K
         n_states = self.n_states
 
-        rho_dot = np.zeros((n_states, n_states))
-        rho = np.pad(rho, 1, mode="constant")
+        rho_dot = np.zeros((n_states, n_states), dtype=complex)
+        rho = np.pad(rho, 1, mode="constant", constant_values=0+0j)
+    
 
         for n in range(n_states):
             for m in range(n_states):
                 rho_dot[n,m] = self.rho_dot_element(t, rho, n, m)
-
-        return rho_dot
+      
+        return rho_dot.reshape(-1)
 
 
     def solve(self, t_start, t_stop, rho_0):
 
-        soln = odeintw.odeintw(self.rho_dot, rho_0, np.linspace(t_start, t_stop, 100))
-        
+        soln = odeintw.odeintw(self.rho_dot, rho_0.reshape(-1), np.linspace(t_start, t_stop, 100))
+
         return soln
-    
+
 if __name__ == '__main__':
 
     delta = 0
     epsilon = 1
     K = -0.5
     n_states = 3
+    t = 0
 
     kr = Kerr_Resonator(n_states, delta, epsilon, K)
-    rho_0 = (np.outer(kr.n_vector(0), kr.n_vector(0))).reshape(-1)
+    rho_0 = (np.outer(kr.n_vector(0), kr.n_vector(0)))
 
+    rho_dot = kr.rho_dot(t, rho_0)
+    print(rho_dot.shape)
+    print(rho_0.shape)
     soln = kr.solve(0, 1, rho_0)
-    print(kr.rho_dot(0,rho_0))
-    #print(soln)
