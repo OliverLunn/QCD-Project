@@ -55,14 +55,16 @@ class Kerr_Resonator:
         return rho_dot
     
     def vectorise(self,mat):
+
         size = np.shape(mat)[0]
-        vec = np.zeros(size**2,dtype=complex)
+        vec = np.zeros(size**2, dtype=complex)
         for i in range(size):
             for j in range(size):
                 vec[j+i*size] = mat[i,j]
         return vec
     
     def unvectorise(self,vec,size):
+
         mat = np.zeros((size,size),dtype=complex)
         for k in range(size**2):
             i = k//size
@@ -76,11 +78,11 @@ class Kerr_Resonator:
         rho_d_vec = self.vectorise(rho_d)
         return rho_d_vec
 
-    def solve(self,rho_0,t_start,t_stop,t_step):
+    def solve(self,rho_0, t_start, t_stop, t_step):
         """
         Perfomring numerical integration of the equations of motion for the density matrix
         """
-        soln = integrate.solve_ivp(self.vector_rho_dot,(t_start,t_stop),rho_0,t_eval=np.arange(t_start,t_stop,t_step))
+        soln = integrate.solve_ivp(self.vector_rho_dot, (t_start, t_stop), rho_0, t_eval=np.arange(t_start, t_stop, t_step))
         return soln
     
         
@@ -109,6 +111,12 @@ class Kerr_Resonator:
 
         return trace
     
+    def analytic_alpha(self, delta):
+        epsilon = self.epsilon
+        kappa = self.K
+
+        alpha = epsilon / (1j*(delta + K*np.abs(alpha)**2) - kappa / 2)
+        return alpha
     
 if __name__ == '__main__':
 
