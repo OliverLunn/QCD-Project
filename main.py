@@ -1,12 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.integrate as integrate
-import odeintw
 
 class Kerr_Resonator:
 
     def __init__(self, n_states, delta, epsilon, K):
-
         self.n_states = n_states   
         self.delta = delta
         self.epsilon = epsilon
@@ -27,7 +25,6 @@ class Kerr_Resonator:
         vector = np.where(comp==n, 1+0j, 0+0j)
         return vector
 
-    
     def rho_dot_element(self, t, rho, n, m):
 
         delta = self.delta
@@ -80,29 +77,66 @@ class Kerr_Resonator:
         return rho_d_vec
 
     def solve(self,rho_0,t_start,t_stop,t_step):
+        """
+        Perfomring numerical integration of the equations of motion for the density matrix
+        """
         soln = integrate.solve_ivp(self.vector_rho_dot,(t_start,t_stop),rho_0,t_eval=np.arange(t_start,t_stop,t_step))
         return soln
+    
         
-        
+    def photon_number(self, rho, t_idx):
+        """
+        Calculates the number of photons in the oscillator. 
+        """
+        a = kr.raising_operator()
+        a_dag = kr.lowering_operator()
+        expectation_val = np.trace(a_dag@a@rho[:,:,t_idx])
+
+        return expectation_val
+    
+    def trace_rho_sq(self, rho, t):
+        """
+        Calculates the trace of the density operator squared
+        Takes a 2D array for the denisty operator
+        Returns value of trace.
+        """
+        n_states = self.n_states
+
+        for n in range(n_states):
+            for m in range(n_states):
+                inner_product = np.inner(rho[:,:]@np.conj(rho[:,:]), self.n_vector(m))
+                trace = np.inner(self.n_vector(n), inner_product)
+
+        return trace
+    
     
 if __name__ == '__main__':
 
     delta = 0
     epsilon = 1
     K = -0.5
-    n_states = 3
+    n_states = 5
 
     kr = Kerr_Resonator(n_states, delta, epsilon, K)
     rho_0 = np.outer(kr.n_vector(0), kr.n_vector(0))
     rho_0_vec = kr.vectorise(rho_0)
 
-    start=0
-    stop=1
+    start, stop = 0, 50
     step=0.01
 
-    soln = kr.solve(rho_0_vec,start,stop,step)
+    soln = kr.solve(rho_0_vec, start, stop, step)
     solution = soln.y
-    matrix_solution = np.zeros((n_states,n_states,len(soln.t)),dtype=complex)
+    matrix_solution = np.zeros((n_states,n_states,len(soln.t)), dtype=complex)
+
     for t in range(len(soln.t)):
-        matrix_solution[:,:,t] = kr.unvectorise(solution[:,t],n_states)
-    print(matrix_solution[:,:,9])
+        matrix_solution[:,:,t] = kr.unvectorise(solution[:,t], n_states)
+
+    time = np.arange(start, stop, step)
+    photon_number = np.zeros(len(time), dtype=complex)   
+    tr_rho_sq = np.zeros(len(time), dtype=complex)
+    
+    for i in range(len(time)):
+        tr_rho_sq[i] = kr.trace_rho_sq(matrix_solution[:,:,i], t)
+        
+    plt.plot(time, tr_rho_sq, ".")
+    plt.show()
