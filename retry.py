@@ -5,7 +5,6 @@ import odeintw
 def rho_dot_element(n:int,m:int,rho,delta,epsilon,K):
     i=1j
     rho = np.pad(rho,1,'constant',constant_values=0+0j)
-    print(rho.shape)
     rho_dot = (-i*delta*n - i*(K/2)*n*(n-1) + i*delta*m + i*(K/2)*m*(m-1) - (1/2)*n - (1/2)*m)*rho[n,m] 
     + epsilon*np.sqrt(n)*rho[n-1,m] + epsilon*np.sqrt(m)*rho[n,m-1] - epsilon*np.sqrt(n+1)*rho[n+1,m] 
     - epsilon*np.sqrt(m+1)*rho[n,m+1] + np.sqrt(n+1)*np.sqrt(m+1)*rho[n+1,m+1]
