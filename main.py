@@ -65,7 +65,7 @@ class Kerr_Resonator:
     
     def unvectorise(self,vec,size):
 
-        mat = np.zeros((size,size),dtype=complex)
+        mat = np.zeros((size,size), dtype=complex)
         for k in range(size**2):
             i = k//size
             j = k%size
@@ -84,8 +84,7 @@ class Kerr_Resonator:
         """
         soln = integrate.solve_ivp(self.vector_rho_dot, (t_start, t_stop), rho_0, t_eval=np.arange(t_start, t_stop, t_step))
         return soln
-    
-        
+     
     def photon_number(self, rho, t_idx):
         """
         Calculates the number of photons in the oscillator. 
@@ -96,7 +95,7 @@ class Kerr_Resonator:
 
         return expectation_val
     
-    def trace_rho_sq(self, rho, t):
+    def trace_rho_sq(self, rho):
         """
         Calculates the trace of the density operator squared
         Takes a 2D array for the denisty operator
@@ -123,7 +122,7 @@ if __name__ == '__main__':
     delta = 0
     epsilon = 1
     K = -0.5
-    n_states = 5
+    n_states = 3
 
     kr = Kerr_Resonator(n_states, delta, epsilon, K)
     rho_0 = np.outer(kr.n_vector(0), kr.n_vector(0))
@@ -134,7 +133,7 @@ if __name__ == '__main__':
 
     soln = kr.solve(rho_0_vec, start, stop, step)
     solution = soln.y
-    matrix_solution = np.zeros((n_states,n_states,len(soln.t)), dtype=complex)
+    matrix_solution = np.zeros((n_states, n_states, len(soln.t)), dtype=complex)
 
     for t in range(len(soln.t)):
         matrix_solution[:,:,t] = kr.unvectorise(solution[:,t], n_states)
@@ -144,7 +143,9 @@ if __name__ == '__main__':
     tr_rho_sq = np.zeros(len(time), dtype=complex)
     
     for i in range(len(time)):
-        tr_rho_sq[i] = kr.trace_rho_sq(matrix_solution[:,:,i], t)
+        tr_rho_sq[i] = kr.trace_rho_sq(matrix_solution[:,:,i])
         
     plt.plot(time, tr_rho_sq, ".")
+    plt.xlabel("t")
+    plt.ylabel("$Tr[ \\rho^2]$")
     plt.show()
