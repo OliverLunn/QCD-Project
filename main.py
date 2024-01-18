@@ -72,9 +72,9 @@ class Kerr_Resonator:
             mat[i,j] = vec[k]
         return mat
     
-    def vector_rho_dot(self, t, rho_vec):
-        rho = self.unvectorise(rho_vec, self.n_states)
-        rho_d = self.rho_dot(t, rho)
+    def vector_rho_dot(self, rho_vec,t):
+        rho = self.unvectorise(rho_vec,self.n_states)
+        rho_d = self.rho_dot(t,rho)
         rho_d_vec = self.vectorise(rho_d)
         return rho_d_vec
 
