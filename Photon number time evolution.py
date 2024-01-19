@@ -18,5 +18,5 @@ result = mesolve(H,rho_0,times,[a],[a_dag*a,a_dag*a_dag*a*a])
 
 ax.plot(times,result.expect[0],label='$<a^{+}a>$')
 ax.set_xlabel('t')
-ax.set_ylabel('expctation value')
+ax.set_ylabel('Photon number $<a^+ a>$')
 plt.show()

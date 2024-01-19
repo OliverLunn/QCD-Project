@@ -12,10 +12,10 @@ def matrix(n_states, result,t_steps):
         
             
 N = 10
-K = 10
+K = -0.5
 epsilon = 1
 times = np.linspace(0, 20, 500)
-delta = 1
+delta = 0
 trace = []
 
 rho_0 = fock_dm(N,0)
