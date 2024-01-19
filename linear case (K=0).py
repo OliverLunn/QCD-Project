@@ -31,8 +31,8 @@ for delta in tqdm(deltas):
     g[i] = (result.expect[1])[-1]/((result.expect[0])[-1])**2
     i+=1
 
-ax1.plot(deltas,photon_num, ".-b", label='numeric')
-ax1.plot(deltas,photon_num_analytic, ".-k", label='analytic')
+ax1.plot(deltas, photon_num, ".-b", label='numeric')
+ax1.plot(deltas, photon_num_analytic, ".-k", label='analytic')
 ax1.set_xlabel('$\Delta$',fontsize="16")
 ax1.set_ylabel('$<a^{+}a>$',fontsize="16")
 ax1.legend()
