@@ -29,6 +29,7 @@ for p in K:
     for delta in tqdm(deltas):
         H = (delta * a_dag * a + (p/2) * a_dag *a_dag * a * a + 1j * epsilon * (a_dag - a))
         result = mesolve(H,rho_0,times,[a],[a_dag*a,a_dag*a_dag*a*a])
+        photon_num = result.expect[0]
         g[i] = (result.expect[1])[-1]/((result.expect[0])[-1])**2
         i+=1
 

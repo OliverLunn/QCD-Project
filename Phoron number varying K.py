@@ -7,7 +7,7 @@ def alpha_sq(epsilon,delta):
     return ((epsilon)**2 )/((delta)**2 + 1/4)
 
 N=10
-K = np.array([0, 0.25, 1, 5])
+K = np.array([0, -1, -5, -15])
 epsilon = 1
 times = np.linspace(0, 20, 100)
 
@@ -20,7 +20,7 @@ axs = 0
 
 for p in K:
 
-    deltas = np.arange(-10,10,0.1)
+    deltas = np.arange(-15,15,0.1)
     photon_num = np.zeros(len(deltas))
     photon_num_analytic = np.zeros(len(deltas))
     g = np.zeros(len(deltas))
