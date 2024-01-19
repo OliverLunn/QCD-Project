@@ -33,7 +33,6 @@ for i in range(len(times)):
 
 
 plt.plot(times, trace, ".r")
-#plt.ylim((0.95,1.05))
 plt.ylabel("$Tr[\\rho^2]$",fontsize="16")
 plt.xlabel("Time", fontsize="16")
 plt.show()
