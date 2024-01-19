@@ -15,6 +15,7 @@ a_dag = create(N)
 fig,ax = plt.subplots(1)
 H = (delta * a_dag * a + (K/2) * a_dag *a_dag * a * a + 1j * epsilon * (a_dag - a))
 result = mesolve(H,rho_0,times,[a],[a_dag*a,a_dag*a_dag*a*a])
+photon_num = result.expect[0]
 
 ax.plot(times,result.expect[0],label='$<a^{+}a>$')
 ax.set_xlabel('t')
