@@ -34,7 +34,7 @@ class Kerr_Resonator:
 
         rho_d = (-i*delta*n - i*(K/2)*n*(n-1) + i*delta*m + i*(K/2)*m*(m-1) - (1/2)*n - (1/2)*m)*rho[n,m]
         + epsilon*np.sqrt(n)*rho[n-1,m] + epsilon*np.sqrt(m)*rho[n,m-1] - epsilon*np.sqrt(n+1)*rho[n+1,m]
-        - epsilon*np.sqrt(m+1)*rho[n,m+1] + np.sqrt(m+1)*np.sqrt(n+1)*rho[n+1,m+1]
+        - epsilon*np.sqrt(m+1)*rho[n,m+1] + np.sqrt(n+1)*np.sqrt(m+1)*rho[n+1,m+1]
 
         return rho_d
     
@@ -45,8 +45,8 @@ class Kerr_Resonator:
         K = self.K
         n_states = self.n_states
 
-        rho_dot = np.zeros((n_states, n_states), dtype=complex)
-        rho = np.pad(rho, 1, mode="constant", constant_values=0+0j)
+        rho_dot = np.zeros((n_states, n_states),dtype=complex)
+        rho = np.pad(rho, 1, mode="constant",constant_values=0+0j)
         
         for n in range(n_states):
             for m in range(n_states):
@@ -105,7 +105,7 @@ class Kerr_Resonator:
 
         for n in range(n_states):
             for m in range(n_states):
-                inner_product = np.inner(rho@np.conj(rho), self.n_vector(m))
+                inner_product = np.inner(rho[:,:]@np.conj(rho[:,:]), self.n_vector(m))
                 trace = np.inner(self.n_vector(n), inner_product)
 
         return trace
@@ -129,7 +129,7 @@ if __name__ == '__main__':
     rho_0_vec = kr.vectorise(rho_0)
 
     start, stop = 0, 50
-    step=0.1
+    step=0.01
 
     soln = kr.solve(rho_0_vec, start, stop, step)
     solution = soln.y
@@ -137,8 +137,6 @@ if __name__ == '__main__':
 
     for t in range(len(soln.t)):
         matrix_solution[:,:,t] = kr.unvectorise(solution[:,t], n_states)
-
-    print(matrix_solution[:,:,299])
 
     time = np.arange(start, stop, step)
     photon_number = np.zeros(len(time), dtype=complex)   

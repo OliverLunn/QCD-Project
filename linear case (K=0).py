@@ -17,7 +17,7 @@ a = destroy(N)
 a_dag = create(N)
 
 fig,ax1 = plt.subplots(1)
-deltas = np.arange(-5,5,0.01)
+deltas = np.arange(-5,5,0.05)
 photon_num = np.zeros(len(deltas))
 photon_num_analytic = np.zeros(len(deltas))
 g = np.zeros(len(deltas))
@@ -31,9 +31,9 @@ for delta in tqdm(deltas):
     g[i] = (result.expect[1])[-1]/((result.expect[0])[-1])**2
     i+=1
 
-ax1.plot(deltas,photon_num, ".b", label='numeric')
-ax1.plot(deltas,photon_num_analytic, ".k", label='analytic')
-ax1.set_xlabel('$\Delta$')
-ax1.set_ylabel('$<a^{+}a>$')
+ax1.plot(deltas,photon_num, ".-b", label='numeric')
+ax1.plot(deltas,photon_num_analytic, ".-k", label='analytic')
+ax1.set_xlabel('$\Delta$',fontsize="16")
+ax1.set_ylabel('$<a^{+}a>$',fontsize="16")
 ax1.legend()
 plt.show()
