@@ -10,7 +10,6 @@ N=10
 K = 0
 epsilon = 1
 times = np.linspace(0, 20, 100)
-delta = 0
 
 rho_0 = fock_dm(N,0)
 a = destroy(N)
