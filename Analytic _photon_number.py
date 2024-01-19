@@ -53,15 +53,10 @@ def func2(alpha,epsilon,K,delta):
     return (epsilon**2) / ((delta + K* (alpha*np.conj(alpha)))**2 + 1/4)
 
 epsilon = 1
-delta = 1
 K= -0.5
 
-alpha = np.arange(0,10,0.01)
-f = func1(alpha)
-g = func2(alpha,epsilon,K,delta)
+alpha = np.arange(0,1000,0.1)
 
-alpha_c, fc = interpolated_intercept(alpha,f,g)
-fc = fc[0][0]
 
 times = np.linspace(0, 20, 100)
 
@@ -77,8 +72,13 @@ photon_num_analytic = np.zeros(len(deltas))
 
 
 i=0
+f = func1(alpha)
 for delta in tqdm(deltas):
+    g = func2(alpha,epsilon,K,delta)
+    alpha_c, fc = interpolated_intercept(alpha,f,g)
+    fc = fc[0][0]
     photon_num_analytic[i] = func2(float(fc),epsilon,K,delta)
+
     H = (delta * a_dag * a + (K/2) * a_dag *a_dag * a * a + 1j * epsilon * (a_dag - a))
     result = mesolve(H,rho_0,times,[a],[a_dag*a,a_dag*a_dag*a*a])
     photon_num[i] = (result.expect[0])[-1]
