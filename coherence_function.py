@@ -6,7 +6,7 @@ from tqdm import tqdm
 def alpha_sq(epsilon,delta):
     return ((epsilon)**2 )/((delta)**2 + 1/4)
 
-N=10
+N=15
 K = np.array([0, 0.25, 1, 5])
 epsilon = 1
 times = np.linspace(0, 20, 100)
@@ -30,12 +30,12 @@ for p in K:
         H = (delta * a_dag * a + (p/2) * a_dag *a_dag * a * a + 1j * epsilon * (a_dag - a))
         result = mesolve(H,rho_0,times,[a],[a_dag*a,a_dag*a_dag*a*a])
         photon_num = result.expect[0]
-        g[i] = (result.expect[1])[-1]/((result.expect[0])[-1])**2
+        g[i] = (result.expect[1])[-1]/(((result.expect[0])[-1])*np.conj(result.expect[0])[-1])
         i+=1
 
     ax[axs].plot(deltas, g, ".-b", label='numeric')
     ax[axs].set_xlabel('$\Delta$',fontsize="16")
-    ax[0].set_ylabel('$<a^{+}a^{+}aa>$',fontsize="16")
+    ax[0].set_ylabel('$g^2(0)$',fontsize="16")
     ax[axs].set_title("K="+str(K[axs]))
     ax[axs].legend()
 

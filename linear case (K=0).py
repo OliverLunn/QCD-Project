@@ -6,7 +6,7 @@ from tqdm import tqdm
 def alpha_sq(epsilon,delta):
     return ((epsilon)**2 )/((delta)**2 + 1/4)
 
-N=10
+N=15
 K = 0
 epsilon = 1
 times = np.linspace(0, 20, 100)
@@ -31,7 +31,7 @@ for delta in tqdm(deltas):
     i+=1
 
 ax1.plot(deltas, photon_num, ".-b", label='numeric')
-ax1.plot(deltas, photon_num_analytic, ".-k", label='analytic')
+ax1.plot(deltas, photon_num_analytic, "D-k", label='analytic')
 ax1.set_xlabel('$\Delta$',fontsize="16")
 ax1.set_ylabel('$<a^{+}a>$',fontsize="16")
 ax1.legend()
