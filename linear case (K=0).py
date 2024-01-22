@@ -6,7 +6,7 @@ from tqdm import tqdm
 def alpha_sq(epsilon,delta):
     return ((epsilon)**2 )/((delta)**2 + 1/4)
 
-N=10
+N=15
 K = 0
 epsilon = 1
 times = np.linspace(0, 20, 100)
