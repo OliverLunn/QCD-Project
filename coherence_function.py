@@ -7,6 +7,7 @@ def alpha_sq(epsilon,delta):
     return ((epsilon)**2 )/((delta)**2 + 1/4)
 
 N=15
+K_prime = 0.5
 K = np.array([0, 0.25, 1, 5])
 epsilon = 1
 times = np.linspace(0, 20, 100)
@@ -34,7 +35,7 @@ for p in K:
         i+=1
 
     ax[axs].plot(deltas, g, ".-b", label='numeric')
-    ax[axs].set_xlabel('$\Delta$',fontsize="16")
+    ax[axs].set_xlabel('$\Delta_p$',fontsize="16")
     ax[0].set_ylabel('$g^2(0)$',fontsize="16")
     ax[axs].set_title("K="+str(K[axs]))
     ax[axs].legend()

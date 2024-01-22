@@ -10,8 +10,9 @@ def matrix(n_states, result, t_steps):
             density_matrix[n,m,:] = (expect(result.states, projection(n_states, n, m)))
     return density_matrix
 
-N=15
+N = 15
 K = 0.5
+K_prime = 0.025
 epsilon = 1
 delta = 0
 

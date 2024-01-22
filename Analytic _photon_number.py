@@ -54,6 +54,7 @@ def func2(alpha,epsilon,K,delta):
 
 epsilon = 1
 K= -0.5
+K_prime = 0.5
 
 alpha = np.arange(0,1000,0.1)
 

@@ -13,6 +13,7 @@ def matrix(n_states, result,t_steps):
             
 N = 10
 K = -0.5
+K_prime = -8
 epsilon = 1
 times = np.linspace(0, 20, 500)
 delta = 0
@@ -23,7 +24,7 @@ a = destroy(N)
 a_dag = create(N)
 
 fig,ax = plt.subplots(1)
-H = (delta * a_dag * a + (K/2) * a_dag *a_dag * a * a + 1j * epsilon * (a_dag - a))
+H = (delta * a_dag * a + (K/2) * a_dag *a_dag * a * a + 1j * epsilon * (a_dag - a) + (K_prime/3) * (a_dag**3) * (a**3))
 result = mesolve(H, rho_0, times,[a])
 t_steps = len(times)
 density_m = matrix(N, result,t_steps)
