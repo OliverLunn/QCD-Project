@@ -77,7 +77,7 @@ f = func1(alpha)
 for delta in tqdm(deltas):
     g = func2(alpha,epsilon,K,delta)
     alpha_c, fc = interpolated_intercept(alpha,f,g)
-    fc = fc[0][0]
+    fc = fc[-1][0]
     photon_num_analytic[i] = func2(float(fc),epsilon,K,delta)
 
     H = (delta * a_dag * a + (K/2) * a_dag *a_dag * a * a + 1j * epsilon * (a_dag - a))
