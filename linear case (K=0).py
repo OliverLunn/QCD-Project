@@ -16,14 +16,14 @@ a = destroy(N)
 a_dag = create(N)
 
 fig,ax1 = plt.subplots(1)
-deltas = np.arange(-5,5,0.05)
+deltas = np.arange(-10,10,0.05)
 photon_num = np.zeros(len(deltas))
 photon_num_analytic = np.zeros(len(deltas))
 g = np.zeros(len(deltas))
 
 i=0
 for delta in tqdm(deltas):
-    H = (delta * a_dag * a + (K/2) * a_dag *a_dag * a * a + 1j * epsilon * (a_dag - a))
+    H = (delta * a_dag * a + (K/2) * a_dag *a_dag * a * a + 1j * epsilon * (a_dag - a) + (K_prime/3) * (a_dag**3) * (a**3))
     result = mesolve(H,rho_0,times,[a],[a_dag*a,a_dag*a_dag*a*a])
     photon_num[i] = (result.expect[0])[-1]
     photon_num_analytic[i] = alpha_sq(epsilon,delta)
