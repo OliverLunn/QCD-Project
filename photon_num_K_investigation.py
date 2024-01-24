@@ -30,6 +30,7 @@ fig, ax = plt.subplots(1,1, figsize=(14, 7), facecolor='w', edgecolor='k')  #cre
 
 ax.plot(deltas, photon(deltas, 0), ".-b", label='$K=0$')
 ax.plot(deltas, photon(deltas, -1), ".-g", label='$K=-1$')
+ax.plot(deltas, photon(deltas, -2.5), ".-c", label='$K=-2.5$')
 ax.plot(deltas, photon(deltas, -5), ".-r", label='$K=-5$')
 ax.plot(deltas, photon(deltas, -10), ".-k", label='$K=-10$')
 ax.set_xlabel('$\Delta$',fontsize="16")
