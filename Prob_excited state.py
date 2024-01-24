@@ -38,14 +38,15 @@ for epsilon in tqdm(epsilons):
         i+=1
     j+=1
 
-ax.imshow(P,origin='lower',extent=(np.min(epsilons),np.max(epsilons),np.min(deltas),np.max(deltas)))
+plt.imshow(P,origin='lower',extent=(np.min(epsilons),np.max(epsilons),np.min(deltas),np.max(deltas)))
 ax.set_ylabel('$\Delta_p$',fontsize="16")
 ax.set_xlabel('$\epsilon_p$',fontsize="16")
-cax = plt.axes([0.9,0.1,0.1,0.8])
 
+cax = plt.axes([0.8,0.1,0.05,0.8])
 plt.colorbar(cax=cax)
-#ax.legend()
+cax.set_ylabel('$P(|1>)$')
 
 
 plt.show()
 plt.tight_layout()
+np.savetxt('P(1).dat',P,fmt='%.4e')
