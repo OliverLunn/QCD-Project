@@ -17,8 +17,8 @@ K_prime = -0.5
 times = np.linspace(0, 20, 200)
 t_steps = len(times)
 
-epsilons = np.linspace(1,5,10)
-deltas = np.linspace(-15,15,10)
+epsilons = np.linspace(1,5,100)
+deltas = np.linspace(-15,15,100)
 
 rho_0 = fock_dm(N,0)
 a = destroy(N)
@@ -41,6 +41,9 @@ for epsilon in tqdm(epsilons):
 ax.imshow(P,origin='lower',extent=(np.min(epsilons),np.max(epsilons),np.min(deltas),np.max(deltas)))
 ax.set_ylabel('$\Delta_p$',fontsize="16")
 ax.set_xlabel('$\epsilon_p$',fontsize="16")
+cax = plt.axes([0.9,0.1,0.1,0.8])
+
+plt.colorbar(cax=cax)
 #ax.legend()
 
 
