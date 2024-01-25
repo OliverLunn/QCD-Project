@@ -12,10 +12,17 @@ def matrix(n_states, result,t_steps):
     return density_matrix
         
             
+<<<<<<< HEAD
 N = 20
 K = -1
 K_prime = -1
 epsilons = [1,2]
+=======
+N = 15
+K = 0
+K_prime = 0
+epsilon = 1
+>>>>>>> 44f76fc6e4934dccdbcbdc8a737e713c5a10c50c
 times = np.linspace(0, 20, 200)
 t_steps = len(times)
 deltas = np.linspace(-15,15,201)
@@ -43,6 +50,7 @@ for epsilon in epsilons:
     j+=1
 
 ax.set_ylabel("$Tr[\\rho^2]$",fontsize="35")
+<<<<<<< HEAD
 ax.set_xlabel("$\Delta_p / \kappa t$", fontsize="35")
 ax.legend(loc=4,fontsize='35')
 
@@ -62,6 +70,23 @@ for epsilon in epsilons:
 
 ax.tick_params('both',labelsize='25')
 ax1.tick_params('both',labelsize='25')
+=======
+ax.set_xlabel("$\Delta_p / \kappa $", fontsize="35")
+
+deltas2 = np.linspace(-1.0,1.0,201)
+trace2 = np.zeros(len(deltas2))
+i=0
+for delta in tqdm(deltas2):
+    H = (delta * a_dag * a + (K/2) * a_dag *a_dag * a * a + 1j * epsilon * (a_dag - a) + (K_prime/3)*a_dag*a_dag*a_dag*a*a*a)
+    result = mesolve(H, rho_0, times,[a])
+    density_m = matrix(N, result,t_steps)
+    trace2[i] = np.real(np.trace(density_m[:,:,-1]@np.conj(density_m[:,:,-1])))
+    i+=1
+
+ax1.plot(deltas2, trace2, ".-b")
+
+ax.tick_params('both',labelsize='24')
+>>>>>>> 44f76fc6e4934dccdbcbdc8a737e713c5a10c50c
 plt.show()
 
 
