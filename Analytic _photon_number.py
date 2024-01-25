@@ -6,17 +6,17 @@ from tqdm import tqdm
 import numpy.ma as ma
 
 epsilon = 1
-K= -0.5
+K = -1
 
 alpha = np.arange(0,1000,0.1)
 times = np.linspace(0, 20, 100)
 
-N=10
+N = 15
 rho_0 = fock_dm(N,0)
 a = destroy(N)
 a_dag = create(N)
 
-fig,ax1 = plt.subplots(1)
+fig,ax1 = plt.subplots(1, figsize=(6,6))
 deltas = np.arange(-5,5,0.05)
 photon_num = np.zeros(len(deltas))
 roots = np.zeros((len(deltas),3),dtype=complex)
@@ -35,9 +35,11 @@ roots = ma.masked_where(np.isreal(roots)==False,roots)
 
 #photon_num_analytic = [i for i in photon_num_analytic if i.imag==0]
 for i in range(3):
-    ax1.plot(deltas,roots[:,i],'x',label='Semi Classical Approximation')
-ax1.plot(deltas, photon_num, "x-r", label='numeric')
-ax1.set_xlabel('$\Delta$',fontsize="16")
-ax1.set_ylabel('$<a^{+}a>$',fontsize="16")
-ax1.legend()
+    ax1.plot(deltas,roots[:,i],'xk')
+ax1.plot(deltas, photon_num, "-b", linewidth=2)
+ax1.set_xlabel('$\Delta_p/\kappa$',fontsize="32")
+ax1.set_ylabel('$<a^{+}a>$',fontsize="32")
+ax1.tick_params(axis="x", labelsize=28)
+ax1.tick_params(axis="y", labelsize=28)
+plt.tight_layout()
 plt.show()

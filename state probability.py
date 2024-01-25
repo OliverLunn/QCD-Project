@@ -11,8 +11,8 @@ def matrix(n_states, result, t_steps):
     return density_matrix
 
 N = 15
-K = 0.5
-K_prime = 0.025
+K = -1
+K_prime = 0
 epsilon = 1
 delta = 0
 
