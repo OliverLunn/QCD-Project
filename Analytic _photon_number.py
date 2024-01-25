@@ -6,7 +6,7 @@ from tqdm import tqdm
 import numpy.ma as ma
 
 epsilon = 1
-K= -1
+K = -1
 
 alpha = np.arange(0,1000,0.1)
 times = np.linspace(0, 20, 100)
@@ -36,7 +36,7 @@ roots = ma.masked_where(np.isreal(roots)==False,roots)
 #photon_num_analytic = [i for i in photon_num_analytic if i.imag==0]
 for i in range(3):
     ax1.plot(deltas,roots[:,i],'xk')
-ax1.plot(deltas, photon_num, "-b")
+ax1.plot(deltas, photon_num, "-b", linewidth=2)
 ax1.set_xlabel('$\Delta_p/\kappa$',fontsize="32")
 ax1.set_ylabel('$<a^{+}a>$',fontsize="32")
 ax1.tick_params(axis="x", labelsize=28)
