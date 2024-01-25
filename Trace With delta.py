@@ -12,7 +12,7 @@ def matrix(n_states, result,t_steps):
     return density_matrix
         
             
-N = 20
+N = 15
 K = 0
 K_prime = 0
 epsilon = 1
@@ -39,9 +39,9 @@ for delta in tqdm(deltas):
 
 ax.plot(deltas, trace, ".-b")
 ax.set_ylabel("$Tr[\\rho^2]$",fontsize="35")
-ax.set_xlabel("$\Delta_p / \kappa t$", fontsize="35")
+ax.set_xlabel("$\Delta_p / \kappa $", fontsize="35")
 
-deltas2 = np.linspace(-0.5,0.5,201)
+deltas2 = np.linspace(-1.0,1.0,201)
 trace2 = np.zeros(len(deltas2))
 i=0
 for delta in tqdm(deltas2):
@@ -53,7 +53,7 @@ for delta in tqdm(deltas2):
 
 ax1.plot(deltas2, trace2, ".-b")
 
-ax.tick_params('both',labelsize='20')
+ax.tick_params('both',labelsize='24')
 plt.show()
 
 
