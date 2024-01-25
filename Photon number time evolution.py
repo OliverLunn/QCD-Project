@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 N=15
-K = -5
-K_prime = -5
+K = -0.5
+K_prime = -0.5
 epsilon = 1
 times = np.linspace(0, 20, 550)
 delta = 0
