@@ -12,7 +12,7 @@ def matrix(n_states, result,t_steps):
         
             
 N = 20
-K = -0.5
+K = 0
 K_prime = 0
 epsilon = 1
 times = np.linspace(0, 20, 200)
